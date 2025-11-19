@@ -4,14 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GlicoZen | Autoavaliação de Glicose</title>
-    <!-- Carrega o Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Configuração personalizada do Tailwind para fonte Inter -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* light blue/gray background */
+            /* A cor de fundo será definida pela classe Tailwind 'bg-gray-900' no <body> */
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -25,44 +23,37 @@
         }
     </style>
 </head>
-<body>
+<body class="bg-gray-900">
 
-    <!-- 1. Header & Navigation -->
-    <header class="bg-white shadow-sm sticky top-0 z-10">
+    <header class="bg-gray-800 shadow-xl sticky top-0 z-10 border-b border-gray-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-start items-center">
-            <!-- Logo -->
-            <div class="text-3xl font-extrabold text-indigo-600 tracking-tight">
+            <div class="text-3xl font-extrabold text-indigo-400 tracking-tight">
                 GlicoZen Avalia
             </div>
         </div>
     </header>
 
     <main>
-        <!-- Container principal do quiz/aplicativo -->
-        <div id="app-container" class="w-full max-w-lg mx-4 bg-white p-8 md:p-10 rounded-xl shadow-2xl border-t-8 border-indigo-500">
-            <!-- O conteúdo do quiz será injetado aqui pelo JavaScript -->
-            <h1 class="text-3xl font-bold text-gray-900 mb-6 text-center">Inicie sua Autoavaliação Zen</h1>
-            <p class="text-gray-600 text-center mb-8">Responda a algumas perguntas simples para obter um resumo rápido da sua condição.</p>
+        <div id="app-container" class="w-full max-w-lg mx-4 bg-gray-800 p-8 md:p-10 rounded-xl shadow-2xl border-t-8 border-indigo-500">
+            
+            <h1 class="text-3xl font-bold text-white mb-6 text-center">Inicie sua Autoavaliação Zen</h1>
+            <p class="text-gray-400 text-center mb-8">Responda a algumas perguntas simples para obter um resumo rápido da sua condição.</p>
             
             <div id="quiz-content">
-                <!-- Conteúdo dinâmico -->
-            </div>
+                </div>
             
             <div id="navigation-buttons" class="mt-8 flex justify-between">
-                <!-- Botões dinâmicos (Voltar/Próximo/Finalizar) -->
-            </div>
+                </div>
             
         </div>
     </main>
 
-    <!-- 6. Footer (Manteve o design) -->
-    <footer class="bg-gray-800 text-white py-6 mt-auto">
+    <footer class="bg-gray-900 text-white py-6 mt-auto border-t border-gray-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-sm text-gray-400">© 2025 GlicoZen. Simplificando o controle de diabetes. (Esta é uma simulação de avaliação).</p>
+            <p class="text-sm text-gray-500">© 2025 GlicoZen. Simplificando o controle de diabetes. (Esta é uma simulação de avaliação).</p>
         </div>
     </footer>
 
-    <!-- JavaScript para o Quiz Interativo -->
     <script>
         // Variáveis de Estado
         let currentStepIndex = 0;
@@ -116,6 +107,7 @@
          * @param {Object} step O objeto de passo do quiz.
          */
         function renderStep(step) {
+            // Atualiza títulos e parágrafos
             appContainerEl.querySelector('h1').textContent = step.title;
             appContainerEl.querySelector('p').textContent = `Passo ${currentStepIndex + 1} de ${quizSteps.length}`;
             quizContentEl.innerHTML = '';
@@ -128,34 +120,35 @@
                 inputHtml = `
                     <div class="relative mt-4">
                         <input type="number" id="${step.id}" name="${step.key}" 
-                            class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:ring-indigo-500 text-2xl font-semibold transition duration-200"
+                            class="w-full p-4 border-2 border-gray-600 rounded-lg focus:border-indigo-500 focus:ring-indigo-500 text-2xl font-semibold transition duration-200 bg-gray-700 text-white placeholder-gray-400"
                             placeholder="${step.placeholder}" min="${step.min}" value="${quizData[step.key] || ''}">
-                        <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg">${step.unit}</span>
+                        <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg">${step.unit}</span>
                     </div>
                 `;
             } else if (step.type === 'options') {
+                // CORREÇÃO ESSENCIAL: Adição de 'peer' no input e 'peer-checked' no label para o Dark Mode
                 inputHtml = step.options.map(option => `
-                    <label class="block cursor-pointer p-4 mb-3 border-2 border-gray-200 rounded-xl transition duration-200 hover:bg-indigo-50 hover:border-indigo-400">
-                        <input type="radio" name="${step.key}" value="${option.value}" class="mr-3 text-indigo-600 focus:ring-indigo-500" 
+                    <label class="block cursor-pointer p-4 mb-3 border-2 border-gray-700 rounded-xl transition duration-200 bg-gray-900 hover:bg-indigo-900/50 hover:border-indigo-400 
+                        peer-checked:bg-indigo-700/50 peer-checked:border-indigo-500">
+                        <input type="radio" name="${step.key}" value="${option.value}" class="mr-3 text-indigo-600 focus:ring-indigo-500 bg-gray-700 border-gray-600 peer" 
                             ${quizData[step.key] === option.value ? 'checked' : ''}>
-                        <span class="text-gray-800 font-medium">${option.label}</span>
+                        <span class="text-gray-200 font-medium">${option.label}</span>
                     </label>
                 `).join('');
             }
 
             quizContentEl.innerHTML = inputHtml;
-            quizContentEl.innerHTML += `<p id="error-message" class="text-red-500 text-sm mt-3 hidden">${step.error}</p>`;
-
+            quizContentEl.innerHTML += `<p id="error-message" class="text-red-400 text-sm mt-3 hidden">${step.error}</p>`; 
 
             // Botões de Navegação
             if (currentStepIndex > 0) {
                 navButtonsEl.innerHTML += `
-                    <button id="back-button" class="py-3 px-6 bg-gray-200 text-gray-800 font-semibold rounded-full hover:bg-gray-300 transition duration-300">
+                    <button id="back-button" class="py-3 px-6 bg-gray-700 text-gray-200 font-semibold rounded-full hover:bg-gray-600 transition duration-300">
                         Voltar
                     </button>
                 `;
             } else {
-                 // Espaçamento para manter o botão "Próximo" no lado direito, mesmo no primeiro passo
+                // Espaçamento para manter o botão "Próximo" no lado direito
                 navButtonsEl.innerHTML += `<div></div>`; 
             }
 
@@ -229,12 +222,11 @@
          * Gera o relatório final baseado nos dados coletados.
          */
         function showReport() {
-            // As linhas problemáticas que tentavam manipular H1 e P após limpar o innerHTML foram removidas.
             
             const { glicose, estado, atividade } = quizData;
             let analiseTitle = '';
             let analiseText = '';
-            let analiseColor = 'text-green-600'; // Padrão para "Ótimo"
+            let analiseColor = 'text-green-400'; 
 
             // Lógica de Análise Simples
             if (estado === 'fasting') {
@@ -244,15 +236,15 @@
                 } else if (glicose > 100 && glicose <= 125) {
                     analiseTitle = 'Atenção Necessária (Pré-diabetes).';
                     analiseText = 'Seus níveis estão ligeiramente elevados em jejum. Monitore de perto e converse com seu médico sobre ajustes na dieta ou exercícios.';
-                    analiseColor = 'text-yellow-600';
+                    analiseColor = 'text-yellow-400';
                 } else if (glicose < 70) {
                     analiseTitle = 'Hipoglicemia em Jejum.';
                     analiseText = 'Seu nível está baixo. Verifique se há sintomas. Lembre-se de sempre ter uma fonte rápida de carboidrato por perto e ajuste as doses de insulina se for o caso, sob orientação médica.';
-                    analiseColor = 'text-red-600';
+                    analiseColor = 'text-red-400';
                 } else {
                     analiseTitle = 'Glicemia Elevada em Jejum.';
                     analiseText = 'Seu nível está alto, indicando que pode ser necessário um ajuste no seu tratamento noturno. Consulte seu médico imediatamente.';
-                    analiseColor = 'text-red-600';
+                    analiseColor = 'text-red-400';
                 }
             } else if (estado === 'post_prandial') {
                 if (glicose < 180) {
@@ -261,7 +253,7 @@
                 } else {
                     analiseTitle = 'Glicemia Alta Pós-Prandial.';
                     analiseText = 'Seus níveis estão elevados após a refeição. Revise a contagem de carboidratos da sua última refeição e, se necessário, converse com seu médico sobre a dose de insulina rápida.';
-                    analiseColor = 'text-red-600';
+                    analiseColor = 'text-red-400';
                 }
             } else { // random
                 if (glicose < 180) {
@@ -270,27 +262,27 @@
                 } else {
                     analiseTitle = 'Nível Elevado (Aleatório).';
                     analiseText = 'O nível está alto para uma leitura aleatória. Tente identificar o que pode ter causado este pico (refeição, estresse, doença).';
-                    analiseColor = 'text-yellow-600';
+                    analiseColor = 'text-yellow-400';
                 }
             }
 
             // Conteúdo do Relatório - O innerHTML é definido apenas uma vez, substituindo o quiz.
             appContainerEl.innerHTML = `
-                <h2 class="text-4xl font-extrabold text-center text-gray-900 mb-2">Seu Relatório GlicoZen</h2>
+                <h2 class="text-4xl font-extrabold text-white text-center mb-2">Seu Relatório GlicoZen</h2>
                 <h3 class="text-3xl font-bold text-center ${analiseColor} mb-6">${analiseTitle}</h3>
                 <div class="space-y-4">
-                    <p class="text-xl text-gray-700">${analiseText}</p>
+                    <p class="text-xl text-gray-300">${analiseText}</p>
                     
-                    <div class="bg-indigo-50 p-6 rounded-xl shadow-inner mt-6">
-                        <h4 class="text-lg font-bold text-indigo-800 mb-3">Seus Dados</h4>
-                        <p class="text-gray-700"><strong>Glicose:</strong> <span class="font-bold text-indigo-600">${glicose} mg/dL</span></p>
-                        <p class="text-gray-700"><strong>Estado:</strong> ${quizSteps[1].options.find(opt => opt.value === estado).label}</p>
-                        <p class="text-gray-700"><strong>Atividade:</strong> ${quizSteps[2].options.find(opt => opt.value === atividade).label}</p>
+                    <div class="bg-indigo-900/50 p-6 rounded-xl shadow-inner mt-6 border border-indigo-700">
+                        <h4 class="text-lg font-bold text-indigo-300 mb-3">Seus Dados</h4>
+                        <p class="text-gray-300"><strong>Glicose:</strong> <span class="font-bold text-indigo-400">${glicose} mg/dL</span></p>
+                        <p class="text-gray-300"><strong>Estado:</strong> ${quizSteps[1].options.find(opt => opt.value === estado).label}</p>
+                        <p class="text-gray-300"><strong>Atividade:</strong> ${quizSteps[2].options.find(opt => opt.value === atividade).label}</p>
                     </div>
 
-                    <div class="pt-6 border-t mt-6">
-                        <h4 class="text-2xl font-bold text-gray-900 mb-2">Próximos Passos GlicoZen</h4>
-                        <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <div class="pt-6 border-t border-gray-700 mt-6">
+                        <h4 class="text-2xl font-bold text-white mb-2">Próximos Passos GlicoZen</h4>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
                             <li>Lembre-se: esta é uma análise preliminar. Sempre consulte seu médico ou nutricionista para decisões de tratamento.</li>
                             <li>Use o GlicoZen para registrar estes dados diariamente e observar tendências.</li>
                             <li>Um monitoramento consistente é a chave para a autonomia no tratamento do diabetes.</li>
@@ -299,18 +291,15 @@
                 </div>
                 
                 <div class="mt-10 text-center">
-                    <a href="./obterApp.html" class="inline-block py-3 px-8 bg-indigo-600 text-white font-bold rounded-full shadow-lg hover:bg-indigo-700 transition duration-300 transform hover:scale-105 no-underline">
-            Tenha seu Dashboard Personalizado
-        </a>
+                    <a href="./app.html" class="inline-block py-3 px-8 bg-indigo-600 text-white font-bold rounded-full shadow-lg hover:bg-indigo-700 transition duration-300 transform hover:scale-105 no-underline">
+                        Tenha seu Dashboard Personalizado
+                    </a>
                 </div>
             `;
         }
         
-
         // Inicia a aplicação no carregamento da página
         document.addEventListener('DOMContentLoaded', () => {
-            // Assegura que a lógica de smooth scrolling não interfira com o quiz
-            // e renderiza o primeiro passo
             renderStep(quizSteps[currentStepIndex]);
         });
 
