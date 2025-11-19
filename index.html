@@ -4,15 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GlicoZen | O Futuro do Monitoramento de Diabetes</title>
-    <!-- Carrega o Tailwind CSS CDN -->
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Configuração personalizada do Tailwind para fonte Inter -->
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        /* * Cores e Fontes Base
+         */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* light blue/gray background */
+            background-color: #111827; /* Fundo base escuro */
+            color: #e5e7eb; /* Cor de texto padrão clara */
+            overflow-x: hidden; /* Evita barra de rolagem horizontal devido à animação */
         }
+
+        /* * Animação de Partículas/Estrelas 
+         */
+        
+        /* 1. Definindo a animação de rolagem */
+        @keyframes move-bg {
+            from { transform: translateY(0); }
+            to { transform: translateY(-100%); }
+        }
+
+        /* 2. Estilo base para o container da seção Hero */
+        #hero-section {
+            position: relative;
+            overflow: hidden; /* Garante que as partículas só apareçam dentro da seção */
+        }
+
+        /* 3. Pseudo-elemento para criar o background de partículas (Estrelas Pequenas e Lentas) */
+        #hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200%; /* O dobro da altura para garantir a repetição suave */
+            background: 
+                /* Estrelas menores e mais escuras */
+                radial-gradient(2px 2px at 20px 30px, #ffffffaa, transparent),
+                radial-gradient(2px 2px at 80px 70px, #ffffffaa, transparent),
+                radial-gradient(2px 2px at 150px 100px, #ffffffaa, transparent),
+                radial-gradient(1px 1px at 100px 150px, #ffffff88, transparent),
+                radial-gradient(1px 1px at 200px 200px, #ffffff88, transparent);
+            background-size: 250px 250px; /* Tamanho do padrão de repetição */
+            animation: move-bg 180s linear infinite; /* Animação lenta e contínua */
+            opacity: 0.5;
+            z-index: 0; /* Fica atrás do conteúdo */
+        }
+
+        /* 4. Segundo Pseudo-elemento (Parallax) para Estrelas Médias e Rápidas */
+        #hero-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200%;
+            background: 
+                /* Estrelas médias e mais claras */
+                radial-gradient(3px 3px at 50px 50px, #ffffff, transparent),
+                radial-gradient(3px 3px at 120px 180px, #ffffff, transparent),
+                radial-gradient(2px 2px at 220px 80px, #ffffffcc, transparent);
+            background-size: 400px 400px;
+            animation: move-bg 90s linear infinite; /* Mais rápido que o ::before (efeito Parallax) */
+            opacity: 0.8;
+            z-index: 0;
+        }
+
+        /* 5. Estilo para o conteúdo (texto) - Garante que o texto fique acima do fundo animado */
+        .hero-content {
+            position: relative; 
+            z-index: 10; 
+        }
+
     </style>
     <script>
         // Função JS para garantir a rolagem suave ao clicar em links
@@ -28,23 +95,22 @@
         });
     </script>
 </head>
-<body>
+<body class="bg-gray-900">
 
-    <!-- 1. Header & Navigation -->
-    <header class="bg-white shadow-sm sticky top-0 z-10">
+    <header class="bg-gray-800 shadow-xl sticky top-0 z-20 border-b border-gray-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <!-- Logo -->
-            <div class="text-3xl font-extrabold text-indigo-600 tracking-tight">
+            
+            <div class="text-3xl font-extrabold text-indigo-400 tracking-tight">
                 GlicoZen
             </div>
-            <!-- Links (Desktop) -->
-            <nav class="hidden md:flex space-x-8 text-gray-600 font-medium">
-                <a href="#recursos" class="hover:text-indigo-600 transition duration-200">Recursos</a>
-                <a href="#beneficios" class="hover:text-indigo-600 transition duration-200">Benefícios</a>
+            
+            <nav class="hidden md:flex space-x-8 text-gray-300 font-medium">
+                <a href="#recursos" class="hover:text-indigo-400 transition duration-200">Recursos</a>
+                <a href="#beneficios" class="hover:text-indigo-400 transition duration-200">Benefícios</a>
                 <a href="./glicozenavalia.html" class="py-2 px-5 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition duration-300 shadow-md">Comece Agora</a>
             </nav>
-            <!-- Mobile Menu Placeholder (simple for this LP) -->
-            <button class="md:hidden text-gray-600 hover:text-indigo-600 transition duration-200">
+            
+            <button class="md:hidden text-gray-300 hover:text-indigo-400 transition duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                 </svg>
@@ -53,13 +119,13 @@
     </header>
 
     <main>
-        <!-- 2. Hero Section -->
-        <section class="py-20 md:py-32 bg-white text-center">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h1 class="text-5xl md:text-7xl font-extrabold text-gray-900 leading-tight mb-6">
-                    O Futuro do <span class="text-indigo-600">Monitoramento de Diabetes</span>.
+        
+        <section id="hero-section" class="py-20 md:py-32 bg-gray-900 text-center">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 hero-content">
+                <h1 class="text-4xl md:text-7xl font-extrabold text-white leading-tight mb-6">
+                    O Futuro do <span class="text-indigo-400">Monitoramento de Diabetes</span>.
                 </h1>
-                <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-10">
+                <p class="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-10">
                     Simplifique e modernize o seu controle diário com GlicoZen: A plataforma intuitiva para registrar glicose, insulina, alimentação e gerar relatórios completos.
                 </p>
                 <a href="./glicozenavalia.html" class="inline-block py-4 px-10 bg-indigo-600 text-white text-xl font-bold rounded-full shadow-lg hover:bg-indigo-700 transition duration-300 transform hover:scale-105">
@@ -68,108 +134,101 @@
                 <p class="mt-4 text-sm text-gray-500">Disponível na Web e App.</p>
             </div>
         </section>
-
-        <!-- 3. Features Section -->
-        <section id="recursos" class="py-16 md:py-24 bg-gray-50">
+        <section id="recursos" class="py-16 md:py-24 bg-gray-800 border-t border-b border-gray-700">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-4xl font-extrabold text-center text-gray-900 mb-4">Recursos Essenciais no Seu Bolso</h2>
-                <p class="text-lg text-center text-gray-600 mb-16 max-w-2xl mx-auto">Tudo o que você precisa para uma gestão de diabetes eficiente, organizada e sem estresse.</p>
+                <h2 class="text-4xl font-extrabold text-center text-white mb-4">Recursos Essenciais no Seu Bolso</h2>
+                <p class="text-lg text-center text-gray-400 mb-16 max-w-2xl mx-auto">Tudo o que você precisa para uma gestão de diabetes eficiente, organizada e sem estresse.</p>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
 
-                    <!-- Feature Card 1: Glicose -->
-                    <div class="bg-white p-8 rounded-2xl shadow-xl transition duration-300 hover:shadow-2xl border-t-4 border-indigo-500">
-                        <div class="text-indigo-500 mb-4">
-                            <!-- Icone de Glicose (Gota de Sangue) -->
+                    
+                    <div class="bg-gray-900 p-8 rounded-2xl shadow-xl transition duration-300 hover:shadow-2xl border-t-4 border-indigo-500">
+                        <div class="text-indigo-400 mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Registro de Glicose</h3>
-                        <p class="text-gray-600">Registre seus níveis de glicose de forma rápida e precisa, com horários e notas personalizadas.</p>
+                        <h3 class="text-xl font-bold text-white mb-2">Registro de Glicose</h3>
+                        <p class="text-gray-400">Registre seus níveis de glicose de forma rápida e precisa, com horários e notas personalizadas.</p>
                     </div>
 
-                    <!-- Feature Card 2: Insulina -->
-                    <div class="bg-white p-8 rounded-2xl shadow-xl transition duration-300 hover:shadow-2xl border-t-4 border-indigo-500">
-                        <div class="text-indigo-500 mb-4">
-                            <!-- Icone de Insulina (Seringa) -->
+                    
+                    <div class="bg-gray-900 p-8 rounded-2xl shadow-xl transition duration-300 hover:shadow-2xl border-t-4 border-indigo-500">
+                        <div class="text-indigo-400 mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.805A17.65 17.65 0 003 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Acompanhamento de Insulina</h3>
-                        <p class="text-gray-600">Monitore as doses de insulina basal e bolus, com lembretes para evitar esquecimentos.</p>
+                        <h3 class="text-xl font-bold text-white mb-2">Acompanhamento de Insulina</h3>
+                        <p class="text-gray-400">Monitore as doses de insulina basal e bolus, com lembretes para evitar esquecimentos.</p>
                     </div>
 
-                    <!-- Feature Card 3: Alimentação -->
-                    <div class="bg-white p-8 rounded-2xl shadow-xl transition duration-300 hover:shadow-2xl border-t-4 border-indigo-500">
-                        <div class="text-indigo-500 mb-4">
-                            <!-- Icone de Alimentação (Maçã/Comida) -->
+                    
+                    <div class="bg-gray-900 p-8 rounded-2xl shadow-xl transition duration-300 hover:shadow-2xl border-t-4 border-indigo-500">
+                        <div class="text-indigo-400 mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9v-1.5a2.5 2.5 0 005 0V12z" />
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Diário Alimentar</h3>
-                        <p class="text-gray-600">Anote suas refeições com detalhes para entender o impacto da dieta na sua glicemia.</p>
+                        <h3 class="text-xl font-bold text-white mb-2">Diário Alimentar</h3>
+                        <p class="text-gray-400">Anote suas refeições com detalhes para entender o impacto da dieta na sua glicemia.</p>
                     </div>
 
-                    <!-- Feature Card 4: Relatórios -->
-                    <div class="bg-white p-8 rounded-2xl shadow-xl transition duration-300 hover:shadow-2xl border-t-4 border-indigo-500">
-                        <div class="text-indigo-500 mb-4">
-                            <!-- Icone de Relatório (Gráfico/Documento) -->
+                    
+                    <div class="bg-gray-900 p-8 rounded-2xl shadow-xl transition duration-300 hover:shadow-2xl border-t-4 border-indigo-500">
+                        <div class="text-indigo-400 mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-4a2 2 0 012-2h2a2 2 0 012 2v4M9 17H7a2 2 0 01-2-2V5a2 2 0 012-2h2m0 14h6m-6 0h.01M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2h-2m-2-4a2 2 0 00-2 2v4a2 2 0 002 2h.01" />
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Relatórios Personalizados</h3>
-                        <p class="text-gray-600">Gere relatórios claros e visuais para compartilhar com seu médico e otimizar o tratamento.</p>
+                        <h3 class="text-xl font-bold text-white mb-2">Relatórios Personalizados</h3>
+                        <p class="text-gray-400">Gere relatórios claros e visuais para compartilhar com seu médico e otimizar o tratamento.</p>
                     </div>
 
                 </div>
             </div>
         </section>
 
-        <!-- 4. Value Proposition / Benefits Section -->
-        <section id="beneficios" class="py-16 md:py-24">
+        
+        <section id="beneficios" class="py-16 md:py-24 bg-gray-900">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <span class="inline-block px-4 py-1 mb-6 text-sm font-semibold text-indigo-600 bg-indigo-100 rounded-full">MAIS AUTONOMIA</span>
-                <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Gerencie Sua Saúde com Confiança</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-12">O GlicoZen é desenhado para ajudar no gerenciamento de uma condição crônica e prevalente, dando a você o poder de decisão e o conhecimento necessário.</p>
+                <span class="inline-block px-4 py-1 mb-6 text-sm font-semibold text-indigo-400 bg-indigo-900/50 rounded-full border border-indigo-400">MAIS AUTONOMIA</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-4">Gerencie Sua Saúde com Confiança</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto mb-12">O GlicoZen é desenhado para ajudar no gerenciamento de uma condição crônica e prevalente, dando a você o poder de decisão e o conhecimento necessário.</p>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-                    <!-- Benefit 1 -->
-                    <div class="p-6 bg-white rounded-xl shadow-lg">
-                        <h4 class="text-2xl font-bold text-indigo-600 mb-2">Simplificação Diária</h4>
-                        <p class="text-gray-600">Reduza a complexidade do seu dia. Em segundos, registre todos os dados vitais em uma interface limpa e amigável.</p>
+                    
+                    <div class="p-6 bg-gray-800 rounded-xl shadow-xl border border-gray-700">
+                        <h4 class="text-2xl font-bold text-indigo-400 mb-2">Simplificação Diária</h4>
+                        <p class="text-gray-300">Reduza a complexidade do seu dia. Em segundos, registre todos os dados vitais em uma interface limpa e amigável.</p>
                     </div>
-                    <!-- Benefit 2 -->
-                    <div class="p-6 bg-white rounded-xl shadow-lg">
-                        <h4 class="text-2xl font-bold text-indigo-600 mb-2">Modernização</h4>
-                        <p class="text-gray-600">Diga adeus às anotações em papel. Tenha gráficos e estatísticas em tempo real, acessíveis de qualquer dispositivo.</p>
+                    
+                    <div class="p-6 bg-gray-800 rounded-xl shadow-xl border border-gray-700">
+                        <h4 class="text-2xl font-bold text-indigo-400 mb-2">Modernização</h4>
+                        <p class="text-gray-300">Diga adeus às anotações em papel. Tenha gráficos e estatísticas em tempo real, acessíveis de qualquer dispositivo.</p>
                     </div>
-                    <!-- Benefit 3 -->
-                    <div class="p-6 bg-white rounded-xl shadow-lg">
-                        <h4 class="text-2xl font-bold text-indigo-600 mb-2">Melhores Decisões</h4>
-                        <p class="text-gray-600">Identifique padrões rapidamente. O GlicoZen transforma seus dados em informações úteis para você e sua equipe de saúde.</p>
+                    
+                    <div class="p-6 bg-gray-800 rounded-xl shadow-xl border border-gray-700">
+                        <h4 class="text-2xl font-bold text-indigo-400 mb-2">Melhores Decisões</h4>
+                        <p class="text-gray-300">Identifique padrões rapidamente. O GlicoZen transforma seus dados em informações úteis para você e sua equipe de saúde.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 5. Final CTA Section -->
-        <section id="cta-final" class="py-20 md:py-24 bg-indigo-600">
+        
+        <section id="cta-final" class="py-20 md:py-24 bg-indigo-700">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-4">Pronto para o GlicoZen?</h2>
-                <p class="text-xl text-indigo-100 mb-10">Junte-se a milhares de pessoas que estão transformando o monitoramento de diabetes em uma experiência mais zen e eficiente.</p>
-                <a href="./glicozenavalia.html" class="inline-block py-4 px-12 bg-white text-indigo-600 text-2xl font-bold rounded-full shadow-2xl hover:bg-gray-100 transition duration-300 transform hover:scale-105">
+                <p class="text-xl text-indigo-200 mb-10">Junte-se a milhares de pessoas que estão transformando o monitoramento de diabetes em uma experiência mais zen e eficiente.</p>
+                <a href="./glicozenavalia.html" class="inline-block py-4 px-12 bg-white text-indigo-700 text-2xl font-bold rounded-full shadow-2xl hover:bg-gray-100 transition duration-300 transform hover:scale-105">
                     Baixe o App Hoje
                 </a>
             </div>
         </section>
     </main>
 
-    <!-- 6. Footer -->
-    <footer class="bg-gray-800 text-white py-10">
+    <footer class="bg-gray-900 text-white py-10 border-t border-gray-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:flex md:justify-between md:items-center">
             <div class="mb-4 md:mb-0">
                 <p class="text-lg font-bold">GlicoZen</p>
