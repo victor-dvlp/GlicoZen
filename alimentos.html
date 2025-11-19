@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlicoZen | 50 Alimentos para o Controle da Diabetes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Cor de fundo definida pela classe Tailwind no <body> */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        main {
+            flex-grow: 1;
+            padding: 2rem 1rem;
+        }
+        /* Estilo para garantir que o contêiner do ícone e texto fique alinhado */
+        .food-item-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: center;
+            gap: 1.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100"> <header class="bg-gray-800 shadow-xl sticky top-0 z-10 border-b border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-3xl font-extrabold text-indigo-400 tracking-tight hover:opacity-80 transition duration-200">
+                GlicoZen <span class="text-xl text-gray-400">| Alimentos</span>
+            </a>
+            <button class="text-gray-400 hover:text-indigo-400 transition duration-200 p-2 rounded-full hover:bg-indigo-900/30">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex justify-center items-start">
+        <div id="food-list-container" class="w-full max-w-3xl bg-gray-800 p-8 md:p-10 rounded-xl shadow-2xl border-t-8 border-green-500 transition-all duration-500">
+            
+            <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-2 text-center">💪 50 Alimentos Amigos da Diabetes</h1>
+            <p class="text-lg text-gray-400 mb-10 text-center border-b border-gray-700 pb-4">Incorpore estes alimentos ricos em fibras, gorduras saudáveis e antioxidantes na sua rotina para ajudar a estabilizar a glicemia.</p>
+
+            <div id="food-list" class="space-y-6">
+                </div>
+            
+        </div>
+    </main>
+
+    <footer class="bg-gray-900 text-white py-6 mt-auto border-t border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm text-gray-500">© 2025 GlicoZen. Monitoramento inteligente de diabetes.</p>
+        </div>
+    </footer>
+
+    <script>
+        const foods = [
+            { name: "Abacate", icon: "🥑", benefit: "Gorduras boas e fibras que melhoram a sensibilidade à insulina." },
+            { name: "Aveia", icon: "🥣", benefit: "Beta-glucana (fibra solúvel) reduz absorção de glicose." },
+            { name: "Feijão", icon: "🫘", benefit: "Combina fibra e proteína, estabilizando glicemia." },
+            { name: "Lentilha", icon: "🍲", benefit: "Fibra e proteína de lenta digestão." },
+            { name: "Grão-de-bico", icon: "🍚", benefit: "Amido resistente e fibras controlam açúcar no sangue." },
+            { name: "Brócolis", icon: "🥦", benefit: "Rico em fibras e antioxidantes (ex: sulforafano)." },
+            { name: "Espinafre", icon: "🥬", benefit: "Magnésio ajuda no controle da glicose." },
+            { name: "Couve", icon: "🍃", benefit: "Fibras e compostos anti-inflamatórios." },
+            { name: "Batata-doce", icon: "🍠", benefit: "Fibras e baixo índice glicêmico (quando cozida com casca)." },
+            { name: "Quinua", icon: "🌾", benefit: "Proteína completa e fibras de liberação lenta." },
+            { name: "Chia", icon: "🥄", benefit: "Fibras formam gel que retarda absorção de açúcar." },
+            { name: "Linhaça", icon: "🌰", benefit: "Ômega-3 e fibras solúveis." },
+            { name: "Amêndoas", icon: "🥜", benefit: "Gorduras boas, magnésio e fibras." },
+            { name: "Nozes", icon: "🌰", benefit: "Ômega-3 e antioxidantes." },
+            { name: "Canela", icon: "🍂", benefit: "Melhora sensibilidade à insulina." },
+            { name: "Gengibre", icon: "🫚", benefit: "Ação anti-inflamatória e melhora metabolismo da glicose." },
+            { name: "Azeite de oliva extravirgem", icon: "🫒", benefit: "Gorduras monoinsaturadas anti-inflamatórias." },
+            { name: "Peixes gordurosos (salmão, sardinha)", icon: "🐟", benefit: "Ômega-3 reduz resistência insulínica." },
+            { name: "Ovos", icon: "🥚", benefit: "Proteína de alta qualidade e saciedade." },
+            { name: "Iogurte natural", icon: "🥛", benefit: "Probióticos e proteína." },
+            { name: "Maçã", icon: "🍎", benefit: "Pectina (fibra) retarda digestão." },
+            { name: "Pera", icon: "🍐", benefit: "Fibras e baixa carga glicêmica." },
+            { name: "Frutas vermelhas (mirtilo, morango)", icon: "🍓", benefit: "Antocianinas e fibras." },
+            { name: "Abacaxi", icon: "🍍", benefit: "Fibras e bromelaina (modera picos)." },
+            { name: "Abóbora", icon: "🎃", benefit: "Fibras e baixas calorias." },
+            { name: "Berinjela", icon: "🍆", benefit: "Fibras solúveis na polpa." },
+            { name: "Pimentão", icon: "🌶️", benefit: "Vitamina C e antioxidantes." },
+            { name: "Tomate", icon: "🍅", benefit: "Licopeno e baixo carboidrato." },
+            { name: "Cogumelos", icon: "🍄", benefit: "Fibras e compostos imunoestimulantes." },
+            { name: "Alcachofra", icon: "🌱", benefit: "Inulina (fibra prebiótica)." },
+            { name: "Aspargos", icon: "🌿", benefit: "Fibras e antioxidantes." },
+            { name: "Cevada", icon: "🌾", benefit: "Beta-glucana (igual à aveia)." },
+            { name: "Amaranto", icon: "🍚", benefit: "Proteína e fibras." },
+            { name: "Sementes de abóbora", icon: "🎃", benefit: "Magnésio e gorduras boas." },
+            { name: "Chá verde", icon: "🍵", benefit: "EGCG melhora sensibilidade à insulina." },
+            { name: "Vinagre de maçã", icon: "🍾", benefit: "Ácido acético reduz pós-refeição." },
+            { name: "Alho", icon: "🧄", benefit: "Alicina melhora perfil glicêmico." },
+            { name: "Cebola", icon: "🧅", benefit: "Quercetina e compostos sulfurados." },
+            { name: "Tofu", icon: "⬜", benefit: "Proteína vegetal e isoflavonas." },
+            { name: "Hummus", icon: "🧆", benefit: "Combinação de fibras (grão-de-bico + azeite)." },
+            { name: "Acelga", icon: "🥬", benefit: "Fibras e magnésio." },
+            { name: "Rúcula", icon: "🌿", benefit: "Nitratos naturais e fibras." },
+            { name: "Palmito", icon: "🌴", benefit: "Fibras e quase zero carboidratos." },
+            { name: "Abobrinha", icon: "🥒", benefit: "Baixíssimo carboidrato e fibras." },
+            { name: "Couve-flor", icon: "🥦", benefit: "Fibras e versatilidade (substituto arroz)." },
+            { name: "Pepino", icon: "🥒", benefit: "Hidratação e fibras." },
+            { name: "Limão", icon: "🍋", benefit: "Fibra pectina e baixo índice glicêmico." },
+            { name: "Coco", icon: "🥥", benefit: "Gorduras boas (TCM) e fibras." },
+            { name: "Açaí puro", icon: "🍇", benefit: "Antocianinas (sem xaropes)." },
+            { name: "Cacau em pó", icon: "🍫", benefit: "Polifenois e melhora função vascular." }
+        ];
+
+        function renderFoodList() {
+            const foodListEl = document.getElementById('food-list');
+            let htmlContent = '';
+
+            foods.forEach((food, index) => {
+                htmlContent += `
+                    <div class="food-item-grid bg-gray-700 p-4 rounded-lg shadow-sm border border-gray-600 hover:shadow-md transition duration-300">
+                        <div class="text-4xl p-2 bg-green-900/50 rounded-full flex items-center justify-center w-16 h-16 border border-green-700">
+                            ${food.icon}
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">${index + 1}. ${food.name}</h3>
+                            <p class="text-sm text-gray-300">${food.benefit}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            foodListEl.innerHTML = htmlContent;
+        }
+
+        document.addEventListener('DOMContentLoaded', renderFoodList);
+    </script>
+</body>
+</html>
